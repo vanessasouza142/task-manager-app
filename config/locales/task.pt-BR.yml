@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    models:
+      task: 'Tarefa'
+    attributes:
+      task:
+        status: 'Status'
+        statuses:
+          pending: 'Pendente'
+          in_progress: 'Em Progresso'
+          completed: 'Concluída'
+          failure: 'Falha'
+        url: 'URL'
