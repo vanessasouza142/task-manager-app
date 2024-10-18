@@ -13,7 +13,7 @@ describe 'User logs in' do
     expect(page).to have_button 'Entrar'
   end
 
-  it 'with sucess' do
+  it 'successfully' do
     #Arrange
     stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/register")
     .with(
