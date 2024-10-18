@@ -23,6 +23,27 @@ class TasksController < ApplicationController
     set_instance
   end
 
+  def edit
+    set_instance
+  end
+
+  def update
+    set_instance
+    if @task.update(task_params)
+      redirect_to @task, notice: 'Tarefa atualizada com sucesso!'
+    else
+      flash.now[:alert] = "Tarefa não atualizada: #{@task.errors.full_messages.join(', ')}"
+      render 'edit'
+    end     
+  end
+
+  def destroy
+    set_instance
+    @task.destroy
+    flash[:notice] = 'Tarefa excluída com sucesso!'
+    redirect_to tasks_path
+  end
+
   private
 
   def task_params

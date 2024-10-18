@@ -1,18 +1,19 @@
 require 'rails_helper'
 
-describe 'User register a new task' do
+describe 'User edit a task' do
   it 'and must be authenticated' do
     #Arrange
+    task = Task.create!(url: 'https://www.webmotors.com.br/comprar/chevrolet')
     
     #Act
-    visit new_task_path
+    visit edit_task_path(task)
     
     #Assert
     expect(current_path).to eq root_path
     expect(page).to have_content 'Você não tem permissão para realizar essa ação!'
   end
 
-  it 'from home' do
+  it 'from home successfully' do
     #Arrange
     stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/register")
     .with(
@@ -24,46 +25,21 @@ describe 'User register a new task' do
       body: { user: { name: 'Maria da Silva', email: 'mariadasilva@mailinator.com' }, token: 'fake_token' }.to_json,
       headers: { 'Content-Type' => 'application/json' }
     )
+    task = Task.create!(url: 'https://www.webmotors.com.br/comprar/chevrolet')
     
     #Act
     visit root_path
     fill_in 'E-mail', with: 'mariadasilva@mailinator.com'
     fill_in 'Senha', with: 'password'
     click_on 'Entrar'
-    click_on 'Nova Tarefa'
+    click_on 'Editar'
+    fill_in 'URL', with: 'https://www.webmotors.com.br/comprar/chevrolet/cruze/14-turbo-lt-16v-flex-4p-automatico'
+    click_on 'Atualizar'
     
     #Assert
-    expect(current_path).to eq new_task_path
-    expect(page).to have_content 'Cadastrar Tarefa'
-    expect(page).to have_field 'URL'
-  end
-
-  it 'successfully' do
-    #Arrange
-    stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/register")
-    .with(
-      body: { name: 'Maria da Silva', email: 'mariadasilva@mailinator.com', password: 'password' }.to_json,
-      headers: { 'Content-Type' => 'application/json' }
-    )
-    .to_return(
-      status: 201,
-      body: { user: { name: 'Maria da Silva', email: 'mariadasilva@mailinator.com' }, token: 'fake_token' }.to_json,
-      headers: { 'Content-Type' => 'application/json' }
-    )
-    
-    #Act
-    visit root_path
-    fill_in 'E-mail', with: 'mariadasilva@mailinator.com'
-    fill_in 'Senha', with: 'password'
-    click_on 'Entrar'
-    click_on 'Nova Tarefa'
-    fill_in 'URL', with: 'https://www.webmotors.com.br/comprar/chevrolet'
-    click_on 'Cadastrar'
-    
-    #Assert
-    expect(page).to have_content 'Tarefa cadastrada com sucesso!'
-    expect(page).to have_content 'Pendente'
-    expect(page).to have_content 'https://www.webmotors.com.br/comprar/chevrolet'
+    expect(current_path).to eq task_path(task)
+    expect(page).to have_content 'Tarefa atualizada com sucesso!'
+    expect(page).to have_content 'https://www.webmotors.com.br/comprar/chevrolet/cruze/14-turbo-lt-16v-flex-4p-automatico'
   end
 
   it 'with incompleted data' do
@@ -78,19 +54,20 @@ describe 'User register a new task' do
       body: { user: { name: 'Maria da Silva', email: 'mariadasilva@mailinator.com' }, token: 'fake_token' }.to_json,
       headers: { 'Content-Type' => 'application/json' }
     )
+    task = Task.create!(url: 'https://www.webmotors.com.br/comprar/chevrolet')
     
     #Act
     visit root_path
     fill_in 'E-mail', with: 'mariadasilva@mailinator.com'
     fill_in 'Senha', with: 'password'
     click_on 'Entrar'
-    click_on 'Nova Tarefa'
+    click_on 'Editar'
     fill_in 'URL', with: ''
-    click_on 'Cadastrar'
+    click_on 'Atualizar'
     
     #Assert
-    expect(current_path).to eq tasks_path
-    expect(page).to have_content 'Tarefa não cadastrada'
+    expect(current_path).to eq task_path(task)
+    expect(page).to have_content 'Tarefa não atualizada'
     expect(page).to have_content 'URL não pode ficar em branco'
   end
 end

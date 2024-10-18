@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-start mb-4">
       <a class='btn btn-secondary' href="<%= tasks_path %>"><i class="bi bi-arrow-left"></i>&nbsp; <%= t('helpers.back') %> </a>
     </div>
-    <h2 class="text-center mb-4 mt-2"><%= t('helpers.create', model: t('activerecord.models.task')) %></h2>
+    <h2 class="text-center mb-4"><%= t('helpers.edit', model: t('activerecord.models.task')) %></h2>
     <%= render partial: 'form' %>
   </div>
 </div>
