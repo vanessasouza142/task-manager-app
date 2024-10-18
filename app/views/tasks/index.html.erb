@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-center align-items-center pt-5">
+  <div class="col-md-6">
+    <div class="d-flex justify-content-end mb-2">
+      <a class='btn btn-primary' href="<%= new_task_path %>"><i class="bi bi-plus"></i>&nbsp; Nova Tarefa </a>
+    </div>
+    <h2 class="text-center mb-4">Lista de Tarefas</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr class="text-center">
+          <th><%= t('activerecord.attributes.task.status') %></th>
+          <th><%= t('activerecord.attributes.task.url') %></th>
+          <th colspan="2">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr class="text-center">
+            <td><%= t("activerecord.attributes.task.statuses.#{task.status}") %></td>
+            <td><%= task.url %></td>
+            <td><%= link_to 'Visualizar', task_path(task) %></td>
+            <td><%= link_to 'Editar', edit_task_path(task) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
