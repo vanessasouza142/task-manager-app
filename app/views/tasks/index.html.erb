@@ -9,16 +9,17 @@
         <tr class="text-center">
           <th><%= t('activerecord.attributes.task.status') %></th>
           <th><%= t('activerecord.attributes.task.url') %></th>
-          <th colspan="2">Ações</th>
+          <th colspan="3">Ações</th>
         </tr>
       </thead>
       <tbody>
         <% @tasks.each do |task| %>
           <tr class="text-center">
-            <td><%= t("activerecord.attributes.task.statuses.#{task.status}") %></td>
-            <td><%= task.url %></td>
-            <td><%= link_to 'Visualizar', task_path(task) %></td>
-            <td><%= link_to 'Editar', edit_task_path(task) %></td>
+            <td class="align-middle"><%= t("activerecord.attributes.task.statuses.#{task.status}") %></td>
+            <td class="align-middle"><%= task.url %></td>
+            <td class="align-middle"><%= link_to 'Visualizar', task_path(task), class: 'btn btn-link' %></td>
+            <td class="align-middle"><%= link_to 'Editar', edit_task_path(task), class: 'btn btn-link' %></td>
+            <td class="align-middle"><%= button_to 'Excluir', task_path(task), method: :delete, class: 'btn btn-link text-danger' %></td>
           </tr>
         <% end %>
       </tbody>
