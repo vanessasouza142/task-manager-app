@@ -15,16 +15,14 @@ describe 'User edit a task' do
 
   it 'from home successfully' do
     #Arrange
-    stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/register")
-    .with(
-      body: { name: 'Maria da Silva', email: 'mariadasilva@mailinator.com', password: 'password' }.to_json,
-      headers: { 'Content-Type' => 'application/json' }
-    )
-    .to_return(
-      status: 201,
-      body: { user: { name: 'Maria da Silva', email: 'mariadasilva@mailinator.com' }, token: 'fake_token' }.to_json,
-      headers: { 'Content-Type' => 'application/json' }
-    )
+    stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/login")
+    .with(body: { email: 'mariadasilva@mailinator.com', password: 'password' }.to_json, headers: { 'Content-Type' => 'application/json' })
+    .to_return( status: 200, body: { user: { id: 1, name: 'Maria da Silva', email: 'mariadasilva@mailinator.com' }, token: 'fake_token' }.to_json)
+    
+    stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/validate_token")
+    .with(headers: { 'Authorization' => 'Bearer fake_token' })
+    .to_return(status: 200, body: { user_id: 1, user_name: 'Maria da Silva' }.to_json)
+
     task = Task.create!(url: 'https://www.webmotors.com.br/comprar/chevrolet')
     
     #Act
@@ -44,16 +42,14 @@ describe 'User edit a task' do
 
   it 'with incompleted data' do
     #Arrange
-    stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/register")
-    .with(
-      body: { name: 'Maria da Silva', email: 'mariadasilva@mailinator.com', password: 'password' }.to_json,
-      headers: { 'Content-Type' => 'application/json' }
-    )
-    .to_return(
-      status: 201,
-      body: { user: { name: 'Maria da Silva', email: 'mariadasilva@mailinator.com' }, token: 'fake_token' }.to_json,
-      headers: { 'Content-Type' => 'application/json' }
-    )
+    stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/login")
+    .with(body: { email: 'mariadasilva@mailinator.com', password: 'password' }.to_json, headers: { 'Content-Type' => 'application/json' })
+    .to_return( status: 200, body: { user: { id: 1, name: 'Maria da Silva', email: 'mariadasilva@mailinator.com' }, token: 'fake_token' }.to_json)
+    
+    stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/validate_token")
+    .with(headers: { 'Authorization' => 'Bearer fake_token' })
+    .to_return(status: 200, body: { user_id: 1, user_name: 'Maria da Silva' }.to_json)
+    
     task = Task.create!(url: 'https://www.webmotors.com.br/comprar/chevrolet')
     
     #Act
