@@ -1,7 +1,8 @@
 <div class="d-flex justify-content-center align-items-center pt-5">
   <div class="col-md-6">
-    <div class="d-flex justify-content-end mb-2">
-      <a class='btn btn-primary' href="<%= new_task_path %>"><i class="bi bi-plus"></i>&nbsp; Nova Tarefa </a>
+    <div class="d-flex justify-content-end mb-4">
+      <%= link_to '<i class="bi bi-plus"></i>&nbsp; Nova Tarefa'.html_safe, new_task_path, class: 'btn btn-primary me-2' %>
+      <%= button_to '<i class="bi bi-download"></i>&nbsp; Realizar Web Scraping'.html_safe, run_scraping_tasks_path, method: :post, class: 'btn btn-primary' %>
     </div>
     <h2 class="text-center mb-4">Lista de Tarefas</h2>
     <table class="table table-striped">

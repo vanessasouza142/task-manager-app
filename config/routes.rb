@@ -6,5 +6,20 @@ Rails.application.routes.draw do
   get 'register', to: 'authentication#new'
   post 'register', to: 'authentication#create'
 
-  resources :tasks
+  resources :tasks do
+    collection do
+      post 'run_scraping'
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :tasks, only: [] do
+        collection do
+          post 'update'
+        end
+      end
+    end
+  end
+  
 end

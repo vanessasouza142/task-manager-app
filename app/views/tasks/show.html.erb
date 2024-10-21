@@ -13,8 +13,8 @@
       </thead>
       <tbody>
         <tr class="text-center">
-          <td><%= t("activerecord.attributes.task.statuses.#{@task.status}") %></td>
-          <td><%= @task.url %></td>
+          <td class="align-middle"><%= t("activerecord.attributes.task.statuses.#{@task.status}") %></td>
+          <td class="align-middle"><%= @task.url %></td>
         </tr>
       </tbody>
     </table>
@@ -30,9 +30,11 @@
       </thead>
       <tbody>
         <tr class="text-center">
-          <td><%=  %></td>
-          <td><%=  %></td>
-          <td><%=  %></td>
+          <% if @task.result.present? %>
+            <td><%= @task.result['brand'] %></td>
+            <td><%= @task.result['model'] %></td>
+            <td><%= @task.result['price'] %></td>
+          <% end %>
         </tr>
       </tbody>
     </table>
