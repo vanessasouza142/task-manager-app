@@ -2,7 +2,7 @@ class ScrapingService
 
   def self.send_scraping_request(task, action_done_by_user)
     begin
-      response = RestClient.post("#{ENV['WEB_SCRAPING_SERVICE_URL']}/api/v1/scraping",
+      response = RestClient.post("#{ENV['WEB_SCRAPING_MICROSERVICE_URL']}/api/v1/scraping",
         { task_id: task.id, task_url: task.url, action_done_by_user: action_done_by_user}.to_json,
         { content_type: :json, accept: :json }
       )

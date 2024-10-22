@@ -15,11 +15,11 @@ describe 'User view task details' do
 
   it 'from home' do
     #Arrange
-    stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/login")
+    stub_request(:post, "#{ENV['AUTH_MICROSERVICE_URL']}/api/v1/login")
     .with(body: { email: 'mariadasilva@mailinator.com', password: 'password' }.to_json, headers: { 'Content-Type' => 'application/json' })
     .to_return( status: 200, body: { user: { id: 1, name: 'Maria da Silva', email: 'mariadasilva@mailinator.com' }, token: 'fake_token' }.to_json)
     
-    stub_request(:post, "#{ENV['AUTH_SERVICE_URL']}/api/v1/validate_token")
+    stub_request(:post, "#{ENV['AUTH_MICROSERVICE_URL']}/api/v1/validate_token")
     .with(headers: { 'Authorization' => 'Bearer fake_token' })
     .to_return(status: 200, body: { user_id: 1, user_name: 'Maria da Silva' }.to_json)
     

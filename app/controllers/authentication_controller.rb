@@ -5,7 +5,7 @@ class AuthenticationController < ApplicationController
 
   def create
     begin
-      response = RestClient.post("#{ENV['AUTH_SERVICE_URL']}/api/v1/register", user_params.to_json, { content_type: :json, accept: :json })
+      response = RestClient.post("#{ENV['AUTH_MICROSERVICE_URL']}/api/v1/register", user_params.to_json, { content_type: :json, accept: :json })
       response_body = JSON.parse(response.body)
       session[:token] = response_body['token']
       session[:user_name] = response_body['user']['name']

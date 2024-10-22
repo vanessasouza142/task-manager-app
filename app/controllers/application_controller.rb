@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     return nil unless token
 
     begin
-      response = RestClient.post("#{ENV['AUTH_SERVICE_URL']}/api/v1/validate_token", {}.to_json, {
+      response = RestClient.post("#{ENV['AUTH_MICROSERVICE_URL']}/api/v1/validate_token", {}.to_json, {
         Authorization: "Bearer #{token}",
         content_type: :json,
         accept: :json

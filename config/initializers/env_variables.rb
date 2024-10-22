@@ -1,3 +1,3 @@
-ENV['AUTH_SERVICE_URL'] = 'http://localhost:3001'
-ENV['NOTIFICATION_SERVICE_URL'] = 'http://localhost:3002'
-ENV['WEB_SCRAPING_SERVICE_URL'] = 'http://localhost:3003'
+ENV['AUTH_MICROSERVICE_URL'] = 'http://localhost:3001'
+ENV['NOTIFICATION_MICROSERVICE_URL'] = 'http://localhost:3002'
+ENV['WEB_SCRAPING_MICROSERVICE_URL'] = 'http://localhost:3003'
